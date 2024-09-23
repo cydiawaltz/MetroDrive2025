@@ -30,47 +30,14 @@ namespace MetroDrive.MapPlugin
         Model restart;
         Model stopSoon;
         Model leave;
-        Model h16;
-        Model h17;
-        Model h18;
-        Model h19;
+        Model[] stationModel = new Model[10]; 
         Model pass;
         Model stop;
         Model gameover;
         Model good;
         Model great;
         Model bokutei;
-        Model taikenDialog0;
-        Model taikenDialog1;
-        Model taikenDialog2;
-        Model taikenDialog3;
-        Model taikenDialog4;
-        Model taikenDialog5;
-        Model taikenDialog6;
-        Model taikenDialog7;
-        Model taikenDialog8;
-        Model taikenDialog9;
-        Model taikenDialog10;
-        Model taikenDialog11;
-        Model taikenDialog12;
-        Model taikenDialog13;
-        Model taikenDialog14;
-        Model taikenDialog15;
-        Model taikenDialog16;
-        Model taikenDialog17;
-        Model taikenDialog18;
-        Model taikenDialog19;
-        Model taikenDialog20;
-        Model taikenDialog21;
-        Model taikenDialog22;
-        Model taikenDialog23;
-        Model taikenDialog24;
-        Model taikenDialog25;
-        Model taikenDialog26;
-        Model taikenDialog27;
-        Model taikenDialog28;
-        Model taikenDialog29;
-        Model taikenDialog30;
+        Model[] taikenDialog = new Model[31];
         Thread thread;
         bool isDrawing;
         string drawingName;
@@ -98,49 +65,23 @@ namespace MetroDrive.MapPlugin
             //ダイアログ
             bokutei = CreateModels(@"picture\station\bokutei.png", -175, -30, 350, 60);
             //駅系
-            leave = CreateModels(@"picture\station\leave.png", 0, -60, 240, 120);
-            pass = CreateModels(@"picture\station\pass.png", 0, -60, 240, 120);
-            stop = CreateModels(@"picture\station\stop.png", 0, -60, 240, 120);
-            h16 = CreateModels(@"picture\station\h16.png", -230, -60, 300, 120);
-            h17 = CreateModels(@"picture\station\h17.png", -230, -60, 300, 120);
-            h18 = CreateModels(@"picture\station\h18.png", -230, -60, 300, 120);
-            h19 = CreateModels(@"picture\station\h19.png", -230, -60, 300, 120);
+            for(int i= 0;i<10; i++)
+            {
+                stationModel[i] = CreateModels(@"picture\station\"+i+".png", -230, -60, 300, 120);
+            }
             gameover = CreateModels(@"picture\station\over.png", -275, -75, 550, 150);
             //Goodとか
             good = CreateModels(@"picture\UI\good.png", -275, -150, 550, 300);
             great = CreateModels(@"picture\UI\great.png", -275, -150, 550, 300);
             //体験版
-            taikenDialog0 = CreateModels(@"picture\dialog\0.png", -250, 0, 500, 170);
-            taikenDialog1 = CreateModels(@"picture\dialog\1.png", -250, 0, 500, 170);
-            taikenDialog2 = CreateModels(@"picture\dialog\2.png", 0, 0, 380, 130);
-            taikenDialog3 = CreateModels(@"picture\dialog\3.png", 0, 0, 380, 130);
-            taikenDialog4 = CreateModels(@"picture\dialog\4.png", -380, 0, 380, 130);
-            taikenDialog5 = CreateModels(@"picture\dialog\5.png", -380, 0, 380, 130);
-            taikenDialog6 = CreateModels(@"picture\dialog\6.png", -450, -150, 450, 150);
-            taikenDialog7 = CreateModels(@"picture\dialog\7.png", -450, -150, 450, 150);
-            taikenDialog8 = CreateModels(@"picture\dialog\8.png", -450, -150, 450, 150);
-            taikenDialog9 = CreateModels(@"picture\dialog\9.png", -450, -140, 450, 140);
-            taikenDialog10 = CreateModels(@"picture\dialog\10.png", -250, 0, 500, 450);
-            taikenDialog11 = CreateModels(@"picture\dialog\11.png", -250, 0, 500, 170);
-            taikenDialog12 = CreateModels(@"picture\dialog\12.png", -250, 0, 500, 220);
-            taikenDialog13 = CreateModels(@"picture\dialog\13.png", -250, 0, 500, 170);
-            taikenDialog14 = CreateModels(@"picture\dialog\14.png", -400, 0, 800, 310);
-            taikenDialog15 = CreateModels(@"picture\dialog\15.png", -400, 0, 800, 310);
-            taikenDialog16 = CreateModels(@"picture\dialog\16.png", -250, 0, 500, 170);
-            taikenDialog17 = CreateModels(@"picture\dialog\17.png", -300, 0, 600, 350);
-            taikenDialog18 = CreateModels(@"picture\dialog\18.png", -300, 0, 600, 280);
-            taikenDialog19 = CreateModels(@"picture\dialog\19.png", -250, 0, 500, 170);
-            taikenDialog20 = CreateModels(@"picture\dialog\20.png", -350, 0, 700, 240);
-            taikenDialog21 = CreateModels(@"picture\dialog\21.png", -250, 0, 500, 85);
-            taikenDialog22 = CreateModels(@"picture\dialog\22.png", -300, 0, 600, 280);
-            taikenDialog23 = CreateModels(@"picture\dialog\23.png", -250, 0, 500, 85);
-            taikenDialog24 = CreateModels(@"picture\dialog\24.png", -250, 0, 500, 170);
-            taikenDialog25 = CreateModels(@"picture\dialog\25.png", -250, 0, 500, 130);
-            taikenDialog26 = CreateModels(@"picture\dialog\26.png", -250, 0, 500, 150);
-            taikenDialog27 = CreateModels(@"picture\dialog\27.png", -250, 0, 500, 170);
-            taikenDialog28 = CreateModels(@"picture\dialog\28.png", -250, 0, 500, 170);
-            taikenDialog29 = CreateModels(@"picture\dialog\29.png", -250, 0, 500, 170);
-            taikenDialog30 = CreateModels(@"picture\dialog\30.png", -250, 0, 500, 85);
+            int[] tempX = new int[31] { -250,-250,0,0,-380,-380,-450,-450,-450,-450,-250,-250,-250,-250,-400,-400,-250,-300,-300,-250,-350,-250,-300,-250,-250,-250,-250,-250,-250,-250,-250};
+            int[] tempY = new int[31] {0,0,0,0,0,0,-150,-150,-150,-140,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            int[] tempSizex = new int[31] {500,500,380,380,380,380,450,450,450,450,500,500,500,500,800,800,500,600,600,500,700,500,600,500,500,500,500,500,500,500,500};
+            int[] tempSizey = new int[31] {170,170,130,130,130,130,150,150,150,140,450,170,220,170,310,310,170,350,280,170,240,85,280,85,170,130,150,170,170,170,85};
+            for(int i = 0;i < 31; i++)
+            {
+                taikenDialog[i] = CreateModels(@"picture\dialog\"+i+".png", tempX[i], tempY[i], tempSizex[i], tempSizey[i]);
+            }
             Model CreateModels(string path, float x, float y, float sizex, float sizey)
             {
                 string texFilePath = Path.Combine(Path.GetDirectoryName(Location), path);
@@ -212,8 +153,10 @@ namespace MetroDrive.MapPlugin
                 device.SetTransform(TransformState.World, Matrix.Translation(0, 300, 0));
                 switch (stationName)
                 {
+                    case "北千住"
+                        
                     case "入谷":
-                        h19.Draw(Direct3DProvider.Instance, false);
+                        stationModel
                         break;
                     case "上野":
                         h18.Draw(Direct3DProvider.Instance, false);
@@ -234,43 +177,23 @@ namespace MetroDrive.MapPlugin
             if (taikenDrawing)
             {//上族
                 device.SetTransform(TransformState.World, Matrix.Translation(0, height/2, 0));
-                if (taikenindex == 0) { taikenDialog0.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 1) { taikenDialog1.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 10) { taikenDialog10.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 11) { taikenDialog11.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 12) { taikenDialog12.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 13) { taikenDialog13.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 14) { taikenDialog14.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 15) { taikenDialog15.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 16) { taikenDialog16.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 17) { taikenDialog17.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 18) { taikenDialog18.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 19) { 
-                    taikenDialog19.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 20) { taikenDialog20.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 21) { taikenDialog21.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 22) { taikenDialog22.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 24) { taikenDialog24.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 25) { taikenDialog25.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 26) { taikenDialog26.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 27) { taikenDialog27.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 28) { taikenDialog28.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 29) { taikenDialog29.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 30) { taikenDialog30.Draw(Direct3DProvider.Instance, false); }
+                if(taikenindex >9||taikenindex == 0||taikenindex == 1)
+                {
+                    taikenDialog[taikenindex].Draw(Direct3DProvider.Instance, false);
+                }
                 device.SetTransform(TransformState.World, Matrix.Translation(-width/2+150, height / 2 - 200, 0));
-                if (taikenindex == 2) { taikenDialog2.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 3) { taikenDialog3.Draw(Direct3DProvider.Instance, false); }
+                if (taikenindex == 2) { taikenDialog[2].Draw(Direct3DProvider.Instance, false); }
+                if (taikenindex == 3) { taikenDialog[3].Draw(Direct3DProvider.Instance, false); }
                 device.SetTransform(TransformState.World, Matrix.Translation(width / 2 - 150, height / 2 - 200, 0));
-                if (taikenindex == 4) { taikenDialog4.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 5) { taikenDialog5.Draw(Direct3DProvider.Instance, false); }
+                if (taikenindex == 4) { taikenDialog[4].Draw(Direct3DProvider.Instance, false); }
+                if (taikenindex == 5) { taikenDialog[5].Draw(Direct3DProvider.Instance, false); }
                 //device.SetTransform(TransformState.World, Matrix.Translation(width / 2 - 400, -height / 2 +100, 0));
                 device.SetTransform(TransformState.World, Matrix.Translation(0, 0, 0));
-                if (taikenindex == 6) { 
-                    taikenDialog6.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 7) { taikenDialog7.Draw(Direct3DProvider.Instance, false); }
-                if (taikenindex == 8) { taikenDialog8.Draw(Direct3DProvider.Instance, false); }
+                if (taikenindex == 6) { taikenDialog[6].Draw(Direct3DProvider.Instance, false); }
+                if (taikenindex == 7) { taikenDialog[7].Draw(Direct3DProvider.Instance, false); }
+                if (taikenindex == 8) { taikenDialog[8].Draw(Direct3DProvider.Instance, false); }
                 device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 400, -height / 2 + 100, 0));
-                if (taikenindex == 9) { taikenDialog9.Draw(Direct3DProvider.Instance, false); }
+                if (taikenindex == 9) { taikenDialog[9].Draw(Direct3DProvider.Instance, false); }
             }
         }
         public void DrawDialog(string model,string station,int stoptime)
@@ -407,7 +330,6 @@ namespace MetroDrive.MapPlugin
                 await Task.Delay(5000);
                 taikenindex = 30;
                 await Task.Delay(3000);
-                string a = Path.Combine(Location, "../../../../../../../../HongoMCCGame2024.exe");
                 if (File.Exists(Path.Combine(Location,"../demo.txt")))
                 {
                     try
@@ -421,7 +343,6 @@ namespace MetroDrive.MapPlugin
                 }
                 Application.Exit();
             }
-
         }
         public void TaikenUpdate(TimeSpan taikenElapsed)
         {

@@ -42,9 +42,13 @@ namespace MetroDrive
                 nowModel[i] = CreateTimeModel("now", i, 0, 0);
             }
             //残り距離
-            for (int i = 0; i < 10; i++)
+            /*for (int i = 0; i < 10; i++)
             {
                 remainingModel[i] = CreateAnyModel(@"picture\remain\" + i + ".png", 0, 0, 40, 80);
+            }*/
+            for (int i = 0;i < 10; i++)
+            {
+                nextModel[i] = CreateAnyModel(@"picture\remain\" + i + ".png", 0, 0, 40, 80);
             }
             //固定UI
             arrivePicture = CreateArvModel();
@@ -154,41 +158,39 @@ namespace MetroDrive
                         ato.Draw(Direct3DProvider.Instance, false);
                     }
                 }
+                //残距離
                 device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 200, -height / 2 +60, 0));
                 meter.Draw(Direct3DProvider.Instance, false);
                 if (Math.Abs(NeXTLocation - nowLocation) >= 1000)
                 {
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2, -height / 2 + 100, 0));
-                    nextModel[0].Draw(Direct3DProvider.Instance, false);
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 50, -height / 2 + 100, 0));
-                    nextModel[1].Draw(Direct3DProvider.Instance, false);
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 100, -height / 2 + 100, 0));
-                    nextModel[2].Draw(Direct3DProvider.Instance, false);
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 150, -height / 2 + 100, 0));
-                    nextModel[3].Draw(Direct3DProvider.Instance, false);
+                    for(int i = 0;i<4; i++)
+                    {
+                        device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 50*i, -height / 2 + 100, 0));
+                        nextModel[nextMes[i]].Draw(Direct3DProvider.Instance, false);
+                    }
                 }
                 if (Math.Abs(NeXTLocation - nowLocation) < 1000 && Math.Abs(NeXTLocation - nowLocation) >= 100)
                 {
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 50, -height / 2 + 100, 0));
-                    nextModel[0].Draw(Direct3DProvider.Instance, false);
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 100, -height / 2 + 100, 0));
-                    nextModel[1].Draw(Direct3DProvider.Instance, false);
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 150, -height / 2 + 100, 0));
-                    nextModel[2].Draw(Direct3DProvider.Instance, false);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 50 * (i+1), -height / 2 + 100, 0));
+                        nextModel[nextMes[i]].Draw(Direct3DProvider.Instance, false);
+                    }
                 }
                 if (Math.Abs(NeXTLocation - nowLocation) < 100 && Math.Abs(NeXTLocation - nowLocation) >= 10)
                 {
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 100, -height / 2 + 100, 0));
-                    nextModel[0].Draw(Direct3DProvider.Instance, false);
-                    device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 150, -height / 2 + 100, 0));
-                    nextModel[1].Draw(Direct3DProvider.Instance, false);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 50 * (i + 2), -height / 2 + 100, 0));
+                        nextModel[nextMes[i]].Draw(Direct3DProvider.Instance, false);
+                    }
                 }
                 if (Math.Abs(NeXTLocation - nowLocation) < 10)
                 {
                     device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 150, -height / 2 + 100, 0));
-                    nextModel[0].Draw(Direct3DProvider.Instance, false);
+                    nextModel[nextMes[0]].Draw(Direct3DProvider.Instance, false);
                 }
-                device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 150, -height / 2 + 100, 0));
+                //device.SetTransform(TransformState.World, Matrix.Translation(-width / 2 + 150, -height / 2 + 100, 0));
 
             }
         }

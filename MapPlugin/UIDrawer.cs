@@ -70,26 +70,27 @@ namespace MetroDrive
                 int height = Direct3DProvider.Instance.PresentParameters.BackBufferHeight;
                 if (life >= 100)
                 {
-                    device.SetTransform(TransformState.World, Matrix.Translation(width / 2-150, -height / 2+250, 0));
-                    lifeModel[lifeMes[0]].Draw(Direct3DProvider.Instance, false);//1の位
-                    device.SetTransform(TransformState.World, Matrix.Translation(width / 2-110, -height / 2+250, 0));
-                    lifeModel[lifeMes[1]].Draw(Direct3DProvider.Instance, false);//10
-                    device.SetTransform(TransformState.World, Matrix.Translation(width / 2-70, -height / 2+250, 0));
-                    lifeModel[lifeMes[2]].Draw(Direct3DProvider.Instance, false);//100
+                    for (int i = 0; i < 3; i++)
+                    {
+                        device.SetTransform(TransformState.World, Matrix.Translation(width / 2 - (150-i*40), -height / 2 + 250, 0));
+                        lifeModel[lifeMes[i]].Draw(Direct3DProvider.Instance, false);
+                    }
                 }
                 if (life > 10 && life < 100)
                 {
-                    device.SetTransform(TransformState.World, Matrix.Translation(width / 2 - 110, -height / 2+250, 0));
-                    lifeModel[lifeMes[0]].Draw(Direct3DProvider.Instance, false);
-                    device.SetTransform(TransformState.World, Matrix.Translation(width / 2 -70, -height / 2 + 250, 0));
-                    lifeModel[lifeMes[1]].Draw(Direct3DProvider.Instance, false);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        device.SetTransform(TransformState.World, Matrix.Translation(width / 2 - (110 - i * 40), -height / 2 + 250, 0));
+                        lifeModel[lifeMes[i]].Draw(Direct3DProvider.Instance, false);
+                    }
                 }
                 if(life == 10)
                 {
-                    device.SetTransform(TransformState.World, Matrix.Translation(width / 2 - 110, -height / 2 + 250, 0));
-                    lifeModel[1].Draw(Direct3DProvider.Instance, false);
-                    device.SetTransform(TransformState.World, Matrix.Translation(width / 2 - 70, -height / 2 + 250, 0));
-                    lifeModel[0].Draw(Direct3DProvider.Instance, false);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        device.SetTransform(TransformState.World, Matrix.Translation(width / 2 - (110 - i * 40), -height / 2 + 250, 0));
+                        lifeModel[i].Draw(Direct3DProvider.Instance, false);
+                    }
                 }
                 if (life < 10)
                 {
@@ -118,6 +119,25 @@ namespace MetroDrive
             if (life > 100)
             { lifeMes[2] = int.Parse(life.ToString().Substring(1, 1)); }//100の(ry)
             return new MapPluginTickResult();
+        }
+        public void OnDispose()
+        {
+            foreach(var powerModel in powerModel)
+            {
+                powerModel.Dispose();
+            }
+            foreach (var brakeModel in brakeModel)
+            {
+                brakeModel.Dispose();
+            }
+            foreach (var lifeModel in lifeModel)
+            {
+                lifeModel.Dispose();
+            }
+            teituu.Dispose();
+            lifePicture.Dispose();
+            autoB.Dispose();
+            autoP.Dispose();
         }
     }
 }
