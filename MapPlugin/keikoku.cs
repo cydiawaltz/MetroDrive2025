@@ -1,19 +1,11 @@
 ﻿using System;
-using AtsEx.PluginHost.Plugins;
 using BveTypes.ClassWrappers;
-using FastMember;
-using TypeWrapping;
-using ObjectiveHarmonyPatch;
 using System.IO;
 using System.Drawing;
 using SlimDX;
 using SlimDX.Direct3D9;
-using AtsEx.PluginHost;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
-using static System.Collections.Specialized.BitVector32;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Windows.Forms;
 using System.Diagnostics;
 
@@ -153,20 +145,36 @@ namespace MetroDrive.MapPlugin
                 device.SetTransform(TransformState.World, Matrix.Translation(0, 300, 0));
                 switch (stationName)
                 {
-                    case "北千住"
-                        
+                    case "北千住":
+                        stationModel[0].Draw(Direct3DProvider.Instance, false);
+                        break;
+                    case "南千住":
+                        stationModel[1].Draw(Direct3DProvider.Instance, false);
+                        break;
+                    case "三ノ輪":
+                        stationModel[2].Draw(Direct3DProvider.Instance, false);
+                        break;
                     case "入谷":
-                        stationModel
+                        stationModel[3].Draw(Direct3DProvider.Instance, false);
                         break;
                     case "上野":
-                        h18.Draw(Direct3DProvider.Instance, false);
-                    break;
+                        stationModel[4].Draw(Direct3DProvider.Instance, false);
+                        break;
                     case "仲御徒町":
-                        h17.Draw(Direct3DProvider.Instance, false);
+                        stationModel[5].Draw(Direct3DProvider.Instance, false);
                     break;
                     case "秋葉原":
-                        h16.Draw(Direct3DProvider.Instance, false);
-                    break;
+                        stationModel[6].Draw(Direct3DProvider.Instance, false);
+                        break;
+                    case "小伝馬町":
+                        stationModel[7].Draw(Direct3DProvider.Instance, false);
+                        break;
+                    case "人形町":
+                        stationModel[8].Draw(Direct3DProvider.Instance, false);
+                        break;
+                    case "茅場町":
+                        stationModel[9].Draw(Direct3DProvider.Instance, false);
+                        break;
                 }
             }
             if(isGood)
