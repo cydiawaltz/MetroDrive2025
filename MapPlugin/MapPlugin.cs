@@ -79,10 +79,10 @@ namespace MetroDrive.MapPlugin
         bool isOverEnd = false;
         public MapPluginMain(PluginBuilder builder) : base(builder)
         {
-            /*if (!System.Diagnostics.Debugger.IsAttached)
+            if (!System.Diagnostics.Debugger.IsAttached)
             {
                 System.Diagnostics.Debugger.Launch();
-            }*/
+            }
             sharedMes = "none";
             life = new Life();
             timeDrawer = new TimeDrawer();
