@@ -2,33 +2,36 @@
   "version": 1,
   "dependencies": {
     ".NETFramework,Version=v4.8": {
-      "AtsEx.CoreExtensions": {
+      "BveEx.CoreExtensions": {
         "type": "Direct",
-        "requested": "[1.0.0-rc9, )",
-        "resolved": "1.0.0-rc9",
-        "contentHash": "b9KGmP9t37+L+9xt2NnI7a/mCh6i8A2Vodx6w/CkwT08bPqe9IsfCt/nSIT0Q8DghTU2nykSN/BBP1TCSH/0ng==",
+        "requested": "[2.0.0, )",
+        "resolved": "2.0.0",
+        "contentHash": "GEjHTJbW9BiDOXVBsvwtX9TpNF3l9uzvjXgPicHhp/dOWheJwWLVQQFFEEwHQPuSPIOu4uWEwBJc8xUPtCsTcg==",
         "dependencies": {
-          "AtsEx.PluginHost": "1.0.0-rc1",
-          "ObjectiveHarmonyPatch": "1.1.0"
+          "BveEx.PluginHost": "2.0.0"
         }
       },
-      "AtsEx.PluginHost": {
+      "BveEx.Diagnostics": {
         "type": "Direct",
-        "requested": "[1.0.0-rc9, )",
-        "resolved": "1.0.0-rc9",
-        "contentHash": "UjhPUohYL8hiMCwvJGQ0IZ5ALcgesonhTGMPO9f2ZjbOMLyHtIdPZj3yeqWUxfX4RqkgKwRidvw9G9OQo61BQA==",
-        "dependencies": {
-          "SlimDX": "4.0.13.44",
-          "UnembeddedResources": "1.0.0"
-        }
+        "requested": "[2.0.0, )",
+        "resolved": "2.0.0",
+        "contentHash": "EbWQN8LVvTev+/0jopO024EekcUaPw9GNEwlQBvcb9SLUmlAyvkvydBzxjdXcZjINAaiHro6PMU6JEdn9nue7g=="
+      },
+      "BveEx.PluginHost": {
+        "type": "Direct",
+        "requested": "[2.0.0, )",
+        "resolved": "2.0.0",
+        "contentHash": "kH1aCuUFISW1/LFyNx1Jm0Y3j9evwzw+w7LLJ+ZUagA4FGLGDRdwPVsa5/vGaySwhOWDXPQdOAi0d0stB2KeZg=="
       },
       "Lib.Harmony": {
-        "type": "Transitive",
-        "resolved": "2.2.2",
-        "contentHash": "70KvWz+DiUELxafsYL/LHxA/jH3PDWeApLo/VwtnrpTvRWQ/eUdPfS/l5funmhZWOy41QXw6UjVv+6C57Nx77A=="
+        "type": "Direct",
+        "requested": "[2.3.3, )",
+        "resolved": "2.3.3",
+        "contentHash": "qxO8d2q7luoY8mTfCStQFOgRSd3dWZSS0Ffi5nrjX4qFkZxEBAEvNh5b/ZejTl2kY0fJs62LmfRJkBBTeiuuyQ=="
       },
       "ObjectiveHarmonyPatch": {
-        "type": "Transitive",
+        "type": "Direct",
+        "requested": "[1.1.0, )",
         "resolved": "1.1.0",
         "contentHash": "tzKrRbZCURq3RpAGbTXZywNJ1sGI/4ia+8OJ6NiSPfhw0uCevXUcHGFlpIxgOQei/3JQKqUMH9aq+RvWUn/44g==",
         "dependencies": {
@@ -36,14 +39,10 @@
         }
       },
       "SlimDX": {
-        "type": "Transitive",
+        "type": "Direct",
+        "requested": "[4.0.13.44, )",
         "resolved": "4.0.13.44",
         "contentHash": "Oj8ICZ3tIGvd93s5W6wSWXckDb3payQCo4fWp7GKPwnnGck7wEHHBZwnwfJJTdNb+t+IYr4HJCu07YhZ82xrIg=="
-      },
-      "UnembeddedResources": {
-        "type": "Transitive",
-        "resolved": "1.0.0",
-        "contentHash": "cZJ8PtsQwQ4EzShUiUdKz2blvj/r6v0/Tg5+43SsWBTpHhX79P05Srtu6ypiSPgOKePnpB5D/SM5HCyoaMQN6g=="
       }
     }
   }

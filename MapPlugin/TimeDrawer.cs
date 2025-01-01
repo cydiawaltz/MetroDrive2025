@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using AtsEx.PluginHost.Plugins;
 using BveTypes.ClassWrappers;
 using SlimDX;
 using SlimDX.Direct3D9;

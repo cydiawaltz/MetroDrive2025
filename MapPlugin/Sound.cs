@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using AtsEx.Extensions.SoundFactory;
 using BveTypes.ClassWrappers;
 
 namespace MetroDrive.MapPlugin

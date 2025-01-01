@@ -1,17 +1,16 @@
 ﻿using System;
-using AtsEx.PluginHost.Plugins;
 using BveTypes.ClassWrappers;
 using FastMember;
 using TypeWrapping;
 using ObjectiveHarmonyPatch;
-using AtsEx.PluginHost.Native;
-//using AtsEx.PluginHost.MapStatements;
-using AtsEx.Extensions.MapStatements;
+using BveEx.PluginHost;
+using BveEx.PluginHost.Plugins;
+using BveEx.Extensions.SoundFactory;
+using BveEx.Extensions.MapStatements;
+using BveEx.Extensions.Native;
+
 using Mackoy.Bvets;
 using System.Windows.Forms;
-//using MetroDrive.Extension;
-using AtsEx.Extensions.SoundFactory;
-using AtsEx.PluginHost;
 
 namespace MetroDrive.MapPlugin
 {
@@ -37,6 +36,7 @@ namespace MetroDrive.MapPlugin
         Pause pause;
         Keikoku keikoku;
         SoundControll soundControll;
+        Initializer Initialize;
         int atc;
         bool hideHorn;
         //フラグ
@@ -61,17 +61,14 @@ namespace MetroDrive.MapPlugin
         int nativepower;
         int nativebrake;
         int goukakuhani = 4;//初期設定（life.OnStartウンタラ()で上書き）
-        /*string sharedMes
-        {
-            get => Extensions.GetExtension<PluginMain>().mapMes;
-            set => Extensions.GetExtension<PluginMain>().mapMes = value;
-        }*/
         string sharedMes;
         string stationName;
         string leaveStationName;
         TimeSpan totalElapsed = TimeSpan.Zero;
         TimeSpan taikenElapsed = TimeSpan.Zero;
+        //インターフェースとか
         ISoundFactory soundFactory;
+        INative native;
         Sound sound;//test
         HarmonyPatch drawPatch;
         bool isAuto = false;
@@ -123,16 +120,18 @@ namespace MetroDrive.MapPlugin
             BveHacker.KeyProvider.KeyDown_Invoke(inputEventArgs2);
             BveHacker.KeyProvider.KeyUp_Invoke(inputEventArgs2);
             isPause= false;
-            Native.BeaconPassed += new BeaconPassedEventHandler(BeaconPassed);
-            Native.HornBlown += new HornBlownEventHandler(life.OnHorn);
+            native.BeaconPassed += new BeaconPassedEventHandler(BeaconPassed);
+            native.HornBlown += new HornBlownEventHandler(life.OnHorn);
             BveHacker.MainFormSource.KeyDown += OnKeyDown;
             BveHacker.ScenarioCreated += OnScenarioCreated;
             BveHacker.MainFormSource.Activate();
             BveHacker.MainFormSource.TopMost = true;
+            native.Opened += new EventHandler(Initialize.OnNativeOpened);
         }
 
         void OnScenarioCreated(ScenarioCreatedEventArgs e)
         {
+
             soundControll.OnStart(Extensions.GetExtension<ISoundFactory>(),Location);
         }
         private PatchInvokationResult DrawPatch_Invoked(object sender, PatchInvokedEventArgs e)
@@ -147,12 +146,12 @@ namespace MetroDrive.MapPlugin
 
         public override void Dispose()
         {
-            Native.BeaconPassed -= BeaconPassed;
-            Native.HornBlown -= life.OnHorn;
+            native.BeaconPassed -= BeaconPassed;
+            native.HornBlown -= life.OnHorn;
             drawPatch.Invoked -= DrawPatch_Invoked;
             soundControll.OnDispose();
         }
-        public override TickResult Tick(TimeSpan elapsed)
+        public override void Tick(TimeSpan elapsed)
         {
             totalElapsed += elapsed;
             if(totalElapsed.TotalSeconds >= 1)
@@ -264,7 +263,6 @@ namespace MetroDrive.MapPlugin
                 life.istaiken = keikoku.isTaikenLife;
                 //if(keikoku.clear&&speed == 0) { keikoku.TaikenEnd(true); }
             }
-            return new MapPluginTickResult();
         }
         public void BeaconPassed(BeaconPassedEventArgs e)
         {
